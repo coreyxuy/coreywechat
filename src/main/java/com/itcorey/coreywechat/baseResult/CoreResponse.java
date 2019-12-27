@@ -7,7 +7,6 @@ import java.io.Serializable;
 
 /**
  * @author corey
- * @Description
  * @create 2019-12-27 17:10
  */
 public class CoreResponse<T> implements Serializable {
