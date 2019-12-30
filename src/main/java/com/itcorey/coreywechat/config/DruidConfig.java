@@ -12,10 +12,17 @@ import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
 
+
+/**
+ * http://localhost:6014/druid/api.html
+ */
 @Configuration
 public class DruidConfig {
+
+    /** 主要实现web监控的配置处理 */
+
     @Bean
-    public ServletRegistrationBean druidServlet() {// 主要实现web监控的配置处理
+    public ServletRegistrationBean druidServlet() {
         ServletRegistrationBean servletRegistrationBean = new ServletRegistrationBean(
                 new StatViewServlet(), "/druid/*");//表示进行druid监控的配置处理操作
         servletRegistrationBean.addInitParameter("allow", "127.0.0.1,129.168.1.11");//白名单

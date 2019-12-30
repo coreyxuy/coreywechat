@@ -1,16 +1,18 @@
 server:
-  port: 6014
+  port: 8007
 
-spring:          #±íÊ¾¸ÃÅäÖÃÖ±½ÓÎªSpringÈİÆ÷¸ºÔğ´¦Àí
-¡¡¡¡datasource:
-  ¡¡¡¡type: com.alibaba.druid.pool.DruidDataSource   #ÅäÖÃµ±Ç°ÒªÊ¹ÓÃµÄÊı¾İÔ´µÄ²Ù×÷ÀàĞÍÄÇ¸ö
-  ¡¡¡¡driver-class-name: org.gjt.mm.mysql.Driver       #ÅäÖÃMySQLµÄÇı¶¯³ÌĞòÀà
-  ¡¡¡¡url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf8
-  ¡¡¡¡username: root
-  ¡¡¡¡password: 123456
-  ¡¡¡¡filters: stat,wall,log4j     #druid¼à¿ØÅäÖÃ
-  ¡¡¡¡dbcp2:
-    ¡¡¡¡min-idle: 5         #Êı¾İ¿âÁ¬½Ó³ØµÄ×îĞ¡Î¬³ÖÁ¬½ÓÊı
-    ¡¡¡¡initial-size: 5     #³õÊ¼»¯Ìá¹©µÄÁ¬½ÓÊı
-    ¡¡¡¡max-total: 5          #×î´óµÄÁ¬½ÓÊı
-    ¡¡¡¡max-wait-millis: 200        #µÈ´ıÁ¬½Ó»ñÈ¡µÄ×î´ó³¬Ê±Ê±¼ä
+spring:
+  aop:
+    auto: true
+ã€€ã€€datasource:
+  ã€€ã€€type: com.alibaba.druid.pool.DruidDataSource   #é…ç½®å½“å‰è¦ä½¿ç”¨çš„æ•°æ®æºçš„æ“ä½œç±»å‹é‚£ä¸ª
+  ã€€ã€€driver-class-name: org.gjt.mm.mysql.Driver       #é…ç½®MySQLçš„é©±åŠ¨ç¨‹åºç±»
+  ã€€ã€€url: jdbc:mysql://localhost:3306/corey_wechat?useUnicode=true&characterEncoding=utf8
+  ã€€ã€€username: root
+  ã€€ã€€password: 123456
+  ã€€ã€€filters: stat,wall,log4j     #druidç›‘æ§é…ç½®
+  ã€€ã€€dbcp2:
+    ã€€ã€€min-idle: 5         #æ•°æ®åº“è¿æ¥æ± çš„æœ€å°ç»´æŒè¿æ¥æ•°
+    ã€€ã€€initial-size: 5     #åˆå§‹åŒ–æä¾›çš„è¿æ¥æ•°
+    ã€€ã€€max-total: 5          #æœ€å¤§çš„è¿æ¥æ•°
+    ã€€ã€€max-wait-millis: 200        #ç­‰å¾…è¿æ¥è·å–çš„æœ€å¤§è¶…æ—¶æ—¶é—´
