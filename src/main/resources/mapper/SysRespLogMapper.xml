@@ -3,18 +3,22 @@
 <mapper namespace="com.itcorey.coreywechat.mapper.SysRespLogMapper" >
   <resultMap id="BaseResultMap" type="com.itcorey.coreywechat.entity.SysRespLog" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="base_path" property="basePath" jdbcType="VARCHAR" />
-    <result column="method" property="method" jdbcType="VARCHAR" />
-    <result column="ip" property="ip" jdbcType="VARCHAR" />
     <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="base_path" property="basePath" jdbcType="VARCHAR" />
+    <result column="req_info" property="reqInfo" jdbcType="VARCHAR" />
+    <result column="method" property="method" jdbcType="VARCHAR" />
+    <result column="parameter" property="parameter" jdbcType="VARCHAR" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
     <result column="startTime" property="starttime" jdbcType="TIMESTAMP" />
     <result column="uri" property="uri" jdbcType="VARCHAR" />
     <result column="url" property="url" jdbcType="VARCHAR" />
     <result column="spendTime" property="spendtime" jdbcType="VARCHAR" />
-    <result column="req_info" property="reqInfo" jdbcType="VARCHAR" />
+    <result column="result" property="result" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, base_path, method, ip, description, startTime, uri, url, spendTime, req_info
+    id, description, username, base_path, req_info, method, parameter, ip, startTime, 
+    uri, url, spendTime, result
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -27,14 +31,16 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.itcorey.coreywechat.entity.SysRespLog" >
-    insert into sys_resp_log (id, base_path, method, 
-      ip, description, startTime, 
+    insert into sys_resp_log (id, description, username, 
+      base_path, req_info, method, 
+      parameter, ip, startTime, 
       uri, url, spendTime, 
-      req_info)
-    values (#{id,jdbcType=INTEGER}, #{basePath,jdbcType=VARCHAR}, #{method,jdbcType=VARCHAR}, 
-      #{ip,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{starttime,jdbcType=TIMESTAMP}, 
+      result)
+    values (#{id,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
+      #{basePath,jdbcType=VARCHAR}, #{reqInfo,jdbcType=VARCHAR}, #{method,jdbcType=VARCHAR}, 
+      #{parameter,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, #{starttime,jdbcType=TIMESTAMP}, 
       #{uri,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{spendtime,jdbcType=VARCHAR}, 
-      #{reqInfo,jdbcType=VARCHAR})
+      #{result,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.itcorey.coreywechat.entity.SysRespLog" >
     insert into sys_resp_log
@@ -42,17 +48,26 @@
       <if test="id != null" >
         id,
       </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
       <if test="basePath != null" >
         base_path,
+      </if>
+      <if test="reqInfo != null" >
+        req_info,
       </if>
       <if test="method != null" >
         method,
       </if>
+      <if test="parameter != null" >
+        parameter,
+      </if>
       <if test="ip != null" >
         ip,
-      </if>
-      <if test="description != null" >
-        description,
       </if>
       <if test="starttime != null" >
         startTime,
@@ -66,25 +81,34 @@
       <if test="spendtime != null" >
         spendTime,
       </if>
-      <if test="reqInfo != null" >
-        req_info,
+      <if test="result != null" >
+        result,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
       <if test="basePath != null" >
         #{basePath,jdbcType=VARCHAR},
+      </if>
+      <if test="reqInfo != null" >
+        #{reqInfo,jdbcType=VARCHAR},
       </if>
       <if test="method != null" >
         #{method,jdbcType=VARCHAR},
       </if>
+      <if test="parameter != null" >
+        #{parameter,jdbcType=VARCHAR},
+      </if>
       <if test="ip != null" >
         #{ip,jdbcType=VARCHAR},
-      </if>
-      <if test="description != null" >
-        #{description,jdbcType=VARCHAR},
       </if>
       <if test="starttime != null" >
         #{starttime,jdbcType=TIMESTAMP},
@@ -98,25 +122,34 @@
       <if test="spendtime != null" >
         #{spendtime,jdbcType=VARCHAR},
       </if>
-      <if test="reqInfo != null" >
-        #{reqInfo,jdbcType=VARCHAR},
+      <if test="result != null" >
+        #{result,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.itcorey.coreywechat.entity.SysRespLog" >
     update sys_resp_log
     <set >
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
       <if test="basePath != null" >
         base_path = #{basePath,jdbcType=VARCHAR},
+      </if>
+      <if test="reqInfo != null" >
+        req_info = #{reqInfo,jdbcType=VARCHAR},
       </if>
       <if test="method != null" >
         method = #{method,jdbcType=VARCHAR},
       </if>
+      <if test="parameter != null" >
+        parameter = #{parameter,jdbcType=VARCHAR},
+      </if>
       <if test="ip != null" >
         ip = #{ip,jdbcType=VARCHAR},
-      </if>
-      <if test="description != null" >
-        description = #{description,jdbcType=VARCHAR},
       </if>
       <if test="starttime != null" >
         startTime = #{starttime,jdbcType=TIMESTAMP},
@@ -130,23 +163,26 @@
       <if test="spendtime != null" >
         spendTime = #{spendtime,jdbcType=VARCHAR},
       </if>
-      <if test="reqInfo != null" >
-        req_info = #{reqInfo,jdbcType=VARCHAR},
+      <if test="result != null" >
+        result = #{result,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.itcorey.coreywechat.entity.SysRespLog" >
     update sys_resp_log
-    set base_path = #{basePath,jdbcType=VARCHAR},
+    set description = #{description,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      base_path = #{basePath,jdbcType=VARCHAR},
+      req_info = #{reqInfo,jdbcType=VARCHAR},
       method = #{method,jdbcType=VARCHAR},
+      parameter = #{parameter,jdbcType=VARCHAR},
       ip = #{ip,jdbcType=VARCHAR},
-      description = #{description,jdbcType=VARCHAR},
       startTime = #{starttime,jdbcType=TIMESTAMP},
       uri = #{uri,jdbcType=VARCHAR},
       url = #{url,jdbcType=VARCHAR},
       spendTime = #{spendtime,jdbcType=VARCHAR},
-      req_info = #{reqInfo,jdbcType=VARCHAR}
+      result = #{result,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

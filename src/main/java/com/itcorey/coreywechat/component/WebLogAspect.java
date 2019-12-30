@@ -1,10 +1,14 @@
 package com.itcorey.coreywechat.component;
 
+import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.URLUtil;
 import cn.hutool.json.JSONUtil;
 import com.alibaba.fastjson.JSON;
+import com.itcorey.coreywechat.entity.SysRespLog;
 import com.itcorey.coreywechat.entity.WebLog;
+import com.itcorey.coreywechat.mapper.SysRespLogMapper;
+import com.itcorey.coreywechat.service.SysRespLogService;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
@@ -12,6 +16,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,6 +42,8 @@ import java.util.Map;
 @Component
 public class WebLogAspect {
 
+    @Autowired
+    private SysRespLogService sysRespLogService;
 
     @Pointcut("execution(public * com.itcorey.coreywechat.controller.*.*(..))")
     public void webLog() {
@@ -77,6 +84,7 @@ public class WebLogAspect {
         webLog.setStartTime(startTime);
         webLog.setUri(request.getRequestURI());
         webLog.setUrl(request.getRequestURL().toString());
+        sysRespLogService.insterLogInfo(webLog);
         log.info("{}", JSONUtil.parse(webLog));
         return result;
     }
