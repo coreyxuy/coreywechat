@@ -1,6 +1,5 @@
 package com.itcorey.coreywechat.service.impl;
 
-import cn.hutool.core.date.DateUtil;
 import com.itcorey.coreywechat.entity.SysRespLog;
 import com.itcorey.coreywechat.entity.WebLog;
 import com.itcorey.coreywechat.mapper.SysRespLogMapper;
@@ -10,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * @author corey
@@ -17,26 +18,27 @@ import javax.annotation.Resource;
  * @create 2019-12-30 16:03
  */
 @Slf4j
-@Service("sysRespLogService")
+@Service
 public class SysRespLogServiceImpl implements SysRespLogService {
 
-    @Resource
+    @Autowired
     private SysRespLogMapper sysRespLogMapper;
 
     @Override
     public Integer insterLogInfo(WebLog webLog) {
         SysRespLog syslog = new SysRespLog();
-        syslog.setDescription(webLog.getDescription());
-        syslog.setUsername(webLog.getUsername());
-        syslog.setBasePath(webLog.getBasePath());
-        syslog.setReqInfo(String.valueOf(webLog.getParameter()));
-        syslog.setMethod(webLog.getMethod());
-        syslog.setIp(webLog.getIp());
-        syslog.setStarttime(DateUtil.parse(String.valueOf(webLog.getStartTime())));
-        syslog.setUri(webLog.getUri());
-        syslog.setUrl(webLog.getUrl());
-        syslog.setSpendtime(String.valueOf(webLog.getSpendTime()));
-        syslog.setResult(String.valueOf(webLog.getResult()));
+        syslog.setId(1);
+        syslog.setDescription("142254");
+        syslog.setUsername("142254");
+        syslog.setBasePath("142254");
+        syslog.setReqInfo("142254");
+        syslog.setMethod("142254");
+        syslog.setParameter("12548787");
+        syslog.setIp("142254");
+        syslog.setUri("147258");
+        syslog.setUrl("142254");
+        syslog.setSpendtime("142254");
+        syslog.setResult("142254");
         sysRespLogMapper.insertSelective(syslog);
         return null;
     }
