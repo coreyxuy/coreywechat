@@ -8,6 +8,7 @@ class CoreywechatApplicationTests {
 
     @Test
     void contextLoads() {
+        System.out.println("---------");
     }
 
 }

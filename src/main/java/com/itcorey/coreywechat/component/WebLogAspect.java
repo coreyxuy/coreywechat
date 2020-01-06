@@ -1,21 +1,17 @@
 package com.itcorey.coreywechat.component;
 
-import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.URLUtil;
-import cn.hutool.json.JSONUtil;
-import com.alibaba.fastjson.JSON;
-import com.itcorey.coreywechat.entity.SysRespLog;
 import com.itcorey.coreywechat.entity.WebLog;
-import com.itcorey.coreywechat.mapper.SysRespLogMapper;
 import com.itcorey.coreywechat.service.SysRespLogService;
 import io.swagger.annotations.ApiOperation;
-import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -37,10 +33,11 @@ import java.util.Map;
  * @Description
  * @create 2019-12-30 11:20
  */
-@Slf4j
 @Aspect
 @Component
 public class WebLogAspect {
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private SysRespLogService sysRespLogService;
@@ -58,6 +55,7 @@ public class WebLogAspect {
     }
     @Around("webLog()")
     public Object doAround(ProceedingJoinPoint joinPoint) throws Throwable {
+        logger.info("日志请求参数 {}",joinPoint);
         long startTime = System.currentTimeMillis();
         //获取当前请求对象
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
@@ -84,8 +82,8 @@ public class WebLogAspect {
         webLog.setStartTime(startTime);
         webLog.setUri(request.getRequestURI());
         webLog.setUrl(request.getRequestURL().toString());
+        logger.info("插入日志记录请求参数 {}",webLog);
         sysRespLogService.insterLogInfo(webLog);
-        log.info("{}", JSONUtil.parse(webLog));
         return result;
     }
 
@@ -93,7 +91,6 @@ public class WebLogAspect {
      * 根据方法和传入的参数获取请求参数
      */
     private Object getParameter(Method method, Object[] args) {
-        log.info("请求参数{}", JSON.toJSONString(args));
         List<Object> argList = new ArrayList<>();
         Parameter[] parameters = method.getParameters();
         for (int i = 0; i < parameters.length; i++) {
@@ -112,13 +109,11 @@ public class WebLogAspect {
                 }
                 map.put(key, args[i]);
                 argList.add(map);
-                log.info("请求参数{}",map.toString());
             }
         }
         if (argList.size() == 0) {
             return null;
         } else if (argList.size() == 1) {
-            log.info("===>{}",argList.get(0));
             return argList.get(0);
         } else {
             return argList;

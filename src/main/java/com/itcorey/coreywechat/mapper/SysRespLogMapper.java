@@ -1,9 +1,7 @@
 package com.itcorey.coreywechat.mapper;
 
 import com.itcorey.coreywechat.entity.SysRespLog;
-import org.apache.ibatis.annotations.Mapper;
 
-@Mapper
 public interface SysRespLogMapper {
     int deleteByPrimaryKey(Integer id);
 
